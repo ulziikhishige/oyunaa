@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="mn">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>OYUNAA - Time Together</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 20px;
+				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+				background: linear-gradient(135deg, #ffe6f0, #ffd6e8);
+				color: #444;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				min-height: 100vh;
+				box-sizing: border-box;
+			}
+
+			h1 {
+				font-size: 3rem;
+				margin: 0;
+				color: #d6336c;
+				font-weight: 900;
+				letter-spacing: 0.1em;
+				text-shadow: 1px 1px 2px #fff;
+			}
+
+			h2 {
+				font-size: 1.25rem;
+				margin: 5px 0 20px 0;
+				color: #a83259;
+				font-style: italic;
+			}
+
+			h3 {
+				font-size: 1.5rem;
+				margin: 20px 0 15px 0;
+				color: #d14f73;
+				font-weight: 700;
+				letter-spacing: 0.05em;
+			}
+
+			.time-container {
+				display: flex;
+				gap: 10px;
+				justify-content: center;
+				flex-wrap: nowrap;
+				overflow-x: auto;
+				padding-bottom: 10px;
+				max-width: 100%;
+			}
+
+			.time-box {
+				background: #fff0f6;
+				border: 2px solid #d6336c;
+				border-radius: 15px;
+				padding: 10px 12px;
+				min-width: 55px;
+				text-align: center;
+				box-shadow: 2px 2px 6px rgba(214, 51, 108, 0.3);
+				user-select: none;
+				flex: 0 0 auto;
+			}
+
+			.time-value {
+				font-size: 1.2rem;
+				font-weight: 800;
+				color: #b32453;
+				margin-bottom: 4px;
+				letter-spacing: 0.05em;
+			}
+
+			.time-label {
+				font-size: 0.65rem;
+				color: #8a2a4b;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+			}
+
+			.love-note {
+				font-size: 1.1rem;
+				color: #b02e56;
+				margin-top: 10px;
+				font-weight: 600;
+				font-style: italic;
+				text-shadow: 1px 1px 2px #ffd6e8;
+				user-select: none;
+			}
+
+			@media (max-width: 480px) {
+				h1 {
+					font-size: 2.2rem;
+				}
+				h2 {
+					font-size: 1rem;
+				}
+				h3 {
+					font-size: 1.3rem;
+				}
+				.time-box {
+					padding: 8px 10px;
+					min-width: 45px;
+				}
+				.time-value {
+					font-size: 1rem;
+				}
+				.time-label {
+					font-size: 0.6rem;
+				}
+				.love-note {
+					font-size: 1rem;
+					margin-top: 8px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<h1>OYUNAA</h1>
+		<h2>thank you for existing in my life</h2>
+
+		<h3>Time Together</h3>
+
+		<div class="time-container" aria-label="Elapsed time since we met">
+			<div class="time-box">
+				<div id="months" class="time-value">0</div>
+				<div class="time-label">Months</div>
+			</div>
+			<div class="time-box">
+				<div id="days" class="time-value">0</div>
+				<div class="time-label">Days</div>
+			</div>
+			<div class="time-box">
+				<div id="hours" class="time-value">0</div>
+				<div class="time-label">Hours</div>
+			</div>
+			<div class="time-box">
+				<div id="minutes" class="time-value">0</div>
+				<div class="time-label">Minutes</div>
+			</div>
+			<div class="time-box">
+				<div id="seconds" class="time-value">0</div>
+				<div class="time-label">Seconds</div>
+			</div>
+		</div>
+
+		<div class="love-note">Хайртай шүү хөөрхнөө</div>
+
+		<script>
+			const startDate = new Date(2025, 3, 6, 11, 0, 0);
+
+			function updateTime() {
+				const now = new Date();
+
+				let months =
+					(now.getFullYear() - startDate.getFullYear()) * 12 +
+					(now.getMonth() - startDate.getMonth());
+
+				let monthAdjustedDate = new Date(startDate);
+				monthAdjustedDate.setMonth(startDate.getMonth() + months);
+
+				if (now < monthAdjustedDate) {
+					months--;
+					monthAdjustedDate.setMonth(startDate.getMonth() + months);
+				}
+
+				let diff = now - monthAdjustedDate;
+
+				let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+				diff -= days * (1000 * 60 * 60 * 24);
+
+				let hours = Math.floor(diff / (1000 * 60 * 60));
+				diff -= hours * (1000 * 60 * 60);
+
+				let minutes = Math.floor(diff / (1000 * 60));
+				diff -= minutes * (1000 * 60);
+
+				let seconds = Math.floor(diff / 1000);
+
+				document.getElementById("months").textContent = months;
+				document.getElementById("days").textContent = days;
+				document.getElementById("hours").textContent = hours;
+				document.getElementById("minutes").textContent = minutes;
+				document.getElementById("seconds").textContent = seconds;
+			}
+
+			updateTime();
+			setInterval(updateTime, 1000);
+		</script>
+	</body>
+</html>
